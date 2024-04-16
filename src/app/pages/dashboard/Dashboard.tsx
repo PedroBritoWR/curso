@@ -1,25 +1,35 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+
+interface IListItem {
+    title: string;
+    isSelected: boolean;
+}
 
 
 export const Dashboard = () => {
-    const [lista, setLista] = useState<string[]>(['teste1', 'teste2', 'teste3'])
+    const [lista, setLista] = useState<IListItem[]>([]);
 
-    const handleInputKeydown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
-        if (event.key === 'Enter') {
-            if (event.currentTarget.value.trim().length === 0) return;
-            const value = event.currentTarget.value;
-            event.currentTarget.value = '';
+    const handleInputKeydown: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
+        if (e.key === 'Enter') {
+            if (e.currentTarget.value.trim().length === 0) return;
+            const value = e.currentTarget.value;
+            e.currentTarget.value = '';
 
             setLista((oldLista) => {
 
-                if (oldLista.includes(value)) return oldLista;
+                if (oldLista.some((ListItem) => ListItem.title === value)) return oldLista;
 
-                return [...oldLista, value];
+                return [
+                    ...oldLista,
+                    {
+                        title: value,
+                        isSelected: false,
+                    }];
 
             });
 
         }
-    }
+    }, [])
 
     return (
         <div>
@@ -30,8 +40,12 @@ export const Dashboard = () => {
             />
 
             <ul>
-                {lista.map((value) => {
-                    return <li key={value}>{value}</li>
+                {lista.map((ListItem) => {
+                    return <li key={ListItem.title}>
+                        <input type='checkbox' />
+                        {ListItem.title}
+
+                    </li>
                 })}
             </ul>
 
