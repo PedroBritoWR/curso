@@ -1,19 +1,42 @@
-import { Link } from 'react-router-dom'
-import { useUsuarioLogado } from '../../hooks/UseUsuarioLogado';
-export const Dashboard = () => {
+import { useState } from 'react';
 
-    const { nomeDoUsuario, logout } = useUsuarioLogado();
+
+export const Dashboard = () => {
+    const [lista, setLista] = useState<string[]>(['teste1', 'teste2', 'teste3'])
+
+    const handleInputKeydown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
+        if (event.key === 'Enter') {
+            if (event.currentTarget.value.trim().length === 0) return;
+            const value = event.currentTarget.value;
+            event.currentTarget.value = '';
+
+            setLista((oldLista) => {
+
+                if (oldLista.includes(value)) return oldLista;
+
+                return [...oldLista, value];
+
+            });
+
+        }
+    }
+
     return (
         <div>
-            <p>dashboard</p>
-            <p>{nomeDoUsuario}</p>
-            <p>
-                Ola, eu sou uma dashboard
-                <Link to='/entrar'>Login</Link>
-            </p>
+            <p>lista</p>
 
-            <button onClick={logout}>Logout</button>
+            <input
+                onKeyDown={handleInputKeydown}
+            />
+
+            <ul>
+                {lista.map((value) => {
+                    return <li key={value}>{value}</li>
+                })}
+            </ul>
 
         </div>
+
     );
 }
+
