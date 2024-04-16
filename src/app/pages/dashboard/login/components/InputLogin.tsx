@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react"
-import { ForwardedRef } from "react";
+import React from 'react'
 
 interface IInputLoginProps {
   type?: string;

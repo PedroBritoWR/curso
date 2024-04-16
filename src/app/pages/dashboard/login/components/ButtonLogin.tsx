@@ -1,5 +1,7 @@
+import React from 'react'
+
 interface IButtonLoginProps {
-  type?: string;
+  type?: "button" | "submit" | "reset";
   onClick: () => void;
   children: React.ReactNode;
 }
@@ -7,7 +9,8 @@ interface IButtonLoginProps {
 
 export const ButtonLogin: React.FC<IButtonLoginProps> = ({ type, onClick, children }) => {
   return (
-    <button>
+    <button type={type} onClick={onClick}>
+
       {children}
     </button>
   );
