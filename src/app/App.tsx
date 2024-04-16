@@ -1,9 +1,12 @@
 
+import { UsuarioLogadoProvider } from "./contexts";
 import { Rotas } from "./routes";
 
- export const App = () => {
+export const App = () => {
   return (
-   <Rotas />
+    <UsuarioLogadoProvider>
+      <Rotas />
+    </UsuarioLogadoProvider>
   );
 }
 
