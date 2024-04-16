@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { InputLogin } from "./components/InputLogin";
+import { ButtonLogin } from "./components/ButtonLogin";
 
 
 export const Login = () => {
@@ -40,6 +41,7 @@ export const Login = () => {
             <form>
                 <p>Quantidade de caracteres do email: {emailLength}</p>
                 <InputLogin
+                    type="text"
                     label="Email"
                     value={email}
                     onChange={newValue => setEmail(newValue)}
@@ -47,8 +49,10 @@ export const Login = () => {
                 />
 
                 <InputLogin
+                    type="password"
                     label="Senha"
                     value={password}
+                    ref={inputPasswordRef}
                     onChange={newValue => setPassword(newValue)}
 
 
@@ -68,6 +72,13 @@ export const Login = () => {
                     onClick={handleEntrar}>
                     entrar
                 </button>
+
+                <ButtonLogin
+                    type="button"
+                    onClick={handleEntrar}
+                    children="xd"
+                />
+
             </form>
         </div>
     )
