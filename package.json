@@ -10,6 +10,7 @@
     "@types/node": "^16.18.93",
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.23",
+    "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
@@ -23,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "mock": "json-server ./mock/db.json"
+    "mock": "json-server ./mock/db.json --port 3333"
   },
   "eslintConfig": {
     "extends": [
@@ -31,20 +32,7 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
-    "@types/react-router-dom": "^5.3.3",
-    "json-server": "^1.0.0-alpha.23"
+    "@types/react-router-dom": "^5.3.3"
   }
 }
