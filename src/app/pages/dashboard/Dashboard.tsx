@@ -31,26 +31,38 @@ export const Dashboard = () => {
         }
     }, [])
 
+    const handleCheckboxChange = (title: string) => {
+        setLista((oldLista) => {
+            return oldLista.map((item) => {
+                if (item.title === title) {
+                    return {
+                        ...item,
+                        isSelected: !item.isSelected,
+                    };
+                }
+                return item;
+            });
+        });
+    };
+
     return (
         <div>
-            <p>lista</p>
+            <p>Lista</p>
 
-            <input
-                onKeyDown={handleInputKeydown}
-            />
+            <input onKeyDown={handleInputKeydown} />
 
             <ul>
-                {lista.map((ListItem) => {
-                    return <li key={ListItem.title}>
-                        <input type='checkbox' />
-                        {ListItem.title}
-
+                {lista.map((item) => (
+                    <li key={item.title}>
+                        <input
+                            type='checkbox'
+                            checked={item.isSelected}
+                            onChange={() => handleCheckboxChange(item.title)}
+                        />
+                        {item.title}
                     </li>
-                })}
+                ))}
             </ul>
-
         </div>
-
     );
-}
-
+};
