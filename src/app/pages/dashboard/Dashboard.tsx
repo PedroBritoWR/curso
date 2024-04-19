@@ -32,7 +32,6 @@ export const Dashboard = () => {
                         setLista(result);
                     }
                 })
-
             TarefasService.create({ title: value, isCompleted: false })
                 .then((result) => {
 
