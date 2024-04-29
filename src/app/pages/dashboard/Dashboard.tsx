@@ -18,42 +18,28 @@ export const Dashboard = () => {
             })
     }, [])
 
+    const handleToggleComplete = useCallback((id:number)=>{
+        
+    }, [])
     const handleInputKeydown: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
         if (e.key === 'Enter') {
-            if (e.currentTarget.value.trim().length === 0) return;
-            const value = e.currentTarget.value;
+            const value = e.currentTarget.value.trim();
+            if (value.length === 0) return;
+
             e.currentTarget.value = '';
 
-            TarefasService.create({ title: value, isCompleted: false, })
+            if (lista.some((listItem) => listItem.title === value)) return;
+
+            TarefasService.create({ title: value, isCompleted: false })
                 .then((result) => {
                     if (result instanceof ApiException) {
                         alert(result.message)
                     } else {
-                        setLista(result);
+                        setLista((oldLista) => oldLista.concat(result));
                     }
                 })
-            TarefasService.create({ title: value, isCompleted: false })
-                .then((result) => {
-
-                })
-
-
-            setLista((oldLista) => {
-
-                if (oldLista.some((ListItem) => ListItem.title === value)) return oldLista;
-
-                return [
-                    ...oldLista,
-                    {
-                        id: oldLista.length,
-                        title: value,
-                        isCompleted: false,
-                    }];
-
-            });
-
         }
-    }, [])
+    }, [lista])
 
     const handleCheckboxChange = (title: string) => {
         setLista((oldLista) => {
@@ -61,7 +47,7 @@ export const Dashboard = () => {
                 if (item.title === title) {
                     return {
                         ...item,
-                        isSelected: !item.isCompleted,
+                        isCompleted: !item.isCompleted
                     };
                 }
                 return item;
@@ -81,7 +67,7 @@ export const Dashboard = () => {
                         <input
                             type='checkbox'
                             checked={item.isCompleted}
-                            onChange={() => handleCheckboxChange(item.title)}
+                            onChange={() => handleToggleComplete(item.id)}
                         />
                         {item.title}
                     </li>
